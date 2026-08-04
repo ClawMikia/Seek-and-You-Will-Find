@@ -28,6 +28,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSaveAlarm"
+        style="@style/Widget.BibleVerse.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_m"

@@ -29,6 +29,16 @@
         <item name="bottomSheetStyle">@style/Widget.BibleVerse.BottomSheet</item>
     </style>
 
+    <style name="ThemeOverlay.BibleVerse.Dialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="android:colorBackground">@color/parchment_light</item>
+        <item name="colorPrimary">@color/burgundy</item>
+        <item name="colorSurface">@color/parchment</item>
+        <item name="colorOnSurface">@color/ink_brown</item>
+        <item name="colorOnPrimary">@color/parchment_light</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/TextAppearance.BibleVerse.Headline</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/TextAppearance.BibleVerse.Body</item>
+    </style>
+
     <style name="Widget.BibleVerse.BottomSheet" parent="Widget.MaterialComponents.BottomSheet.Modal">
         <item name="android:background">@drawable/bg_bottom_sheet</item>
     </style>

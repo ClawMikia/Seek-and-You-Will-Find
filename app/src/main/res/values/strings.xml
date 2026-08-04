@@ -35,7 +35,7 @@
     <string name="filter_chapter_any">Any Chapter</string>
     <string name="filter_verse_label">Verse (optional)</string>
     <string name="filter_verse_any">Any Verse</string>
-    <string name="btn_fetch_verse">Reveal Verse</string>
+    <string name="btn_fetch_verse">Reveal</string>
     <string name="btn_cancel">Cancel</string>
     <string name="btn_save_favorite">Keep as My Verse</string>
     <string name="btn_try_another">Try Another</string>

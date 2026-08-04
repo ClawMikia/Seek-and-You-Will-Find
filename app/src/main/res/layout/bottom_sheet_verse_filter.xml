@@ -45,26 +45,52 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_m"
+                android:layout_marginBottom="10dp"
                 android:text="@string/filter_testament_label" />
-            <Spinner
-                android:id="@+id/spinnerTestament"
+            <TextView
+                android:id="@+id/tvTestament"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_pill_gold_outline"
-                android:padding="@dimen/spacing_s" />
+                android:clickable="true"
+                android:drawableEnd="@drawable/ic_chevron_down"
+                android:drawablePadding="@dimen/spacing_s"
+                android:ellipsize="end"
+                android:focusable="true"
+                android:paddingStart="@dimen/spacing_m"
+                android:paddingTop="@dimen/spacing_s"
+                android:paddingEnd="@dimen/spacing_s"
+                android:paddingBottom="@dimen/spacing_s"
+                android:singleLine="true"
+                android:text="@string/testament_any"
+                android:textColor="@color/ink_brown"
+                android:textSize="@dimen/text_body" />
 
             <TextView
                 style="@style/TextAppearance.BibleVerse.Label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_m"
+                android:layout_marginBottom="10dp"
                 android:text="@string/filter_book_label" />
-            <Spinner
-                android:id="@+id/spinnerBook"
+            <TextView
+                android:id="@+id/tvBook"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_pill_gold_outline"
-                android:padding="@dimen/spacing_s" />
+                android:clickable="true"
+                android:drawableEnd="@drawable/ic_chevron_down"
+                android:drawablePadding="@dimen/spacing_s"
+                android:ellipsize="end"
+                android:focusable="true"
+                android:paddingStart="@dimen/spacing_m"
+                android:paddingTop="@dimen/spacing_s"
+                android:paddingEnd="@dimen/spacing_s"
+                android:paddingBottom="@dimen/spacing_s"
+                android:singleLine="true"
+                android:text="@string/filter_book_any"
+                android:textColor="@color/ink_brown"
+                android:textSize="@dimen/text_body" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -82,13 +108,26 @@
                         style="@style/TextAppearance.BibleVerse.Label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
                         android:text="@string/filter_chapter_label" />
-                    <Spinner
-                        android:id="@+id/spinnerChapter"
+                    <TextView
+                        android:id="@+id/tvChapter"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_pill_gold_outline"
-                        android:padding="@dimen/spacing_s" />
+                        android:clickable="true"
+                        android:drawableEnd="@drawable/ic_chevron_down"
+                        android:drawablePadding="@dimen/spacing_s"
+                        android:ellipsize="end"
+                        android:focusable="true"
+                        android:paddingStart="@dimen/spacing_m"
+                        android:paddingTop="@dimen/spacing_s"
+                        android:paddingEnd="@dimen/spacing_s"
+                        android:paddingBottom="@dimen/spacing_s"
+                        android:singleLine="true"
+                        android:text="@string/filter_chapter_any"
+                        android:textColor="@color/ink_brown"
+                        android:textSize="@dimen/text_body" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -101,13 +140,26 @@
                         style="@style/TextAppearance.BibleVerse.Label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
                         android:text="@string/filter_verse_label" />
-                    <Spinner
-                        android:id="@+id/spinnerVerse"
+                    <TextView
+                        android:id="@+id/tvVerse"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_pill_gold_outline"
-                        android:padding="@dimen/spacing_s" />
+                        android:clickable="true"
+                        android:drawableEnd="@drawable/ic_chevron_down"
+                        android:drawablePadding="@dimen/spacing_s"
+                        android:ellipsize="end"
+                        android:focusable="true"
+                        android:paddingStart="@dimen/spacing_m"
+                        android:paddingTop="@dimen/spacing_s"
+                        android:paddingEnd="@dimen/spacing_s"
+                        android:paddingBottom="@dimen/spacing_s"
+                        android:singleLine="true"
+                        android:text="@string/filter_verse_any"
+                        android:textColor="@color/ink_brown"
+                        android:textSize="@dimen/text_body" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -121,15 +173,16 @@
                     android:id="@+id/btnCancel"
                     style="@style/Widget.BibleVerse.Button.Outlined"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/button_height"
                     android:layout_weight="1"
                     android:layout_marginEnd="@dimen/spacing_s"
                     android:text="@string/btn_cancel" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnFetchVerse"
+                    style="@style/Widget.BibleVerse.Button"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/button_height"
                     android:layout_weight="1"
                     android:layout_marginStart="@dimen/spacing_s"
                     android:text="@string/btn_fetch_verse"
@@ -189,6 +242,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSaveFavorite"
+                    style="@style/Widget.BibleVerse.Button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
