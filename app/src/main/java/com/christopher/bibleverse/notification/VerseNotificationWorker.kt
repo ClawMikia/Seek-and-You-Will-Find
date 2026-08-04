@@ -14,7 +14,16 @@ class VerseNotificationWorker(
     override suspend fun doWork(): Result {
         val repository = applicationContext.verseRepositoryEntryPoint()
         val favorite = repository.observeFavorite().first()
-        VerseNotificationHelper(applicationContext).showDailyVerseNotification(favorite)
+        val notificationId = inputData.getInt(
+            EXTRA_NOTIFICATION_ID,
+            VerseNotificationHelper.NOTIFICATION_BASE_ID
+        )
+        VerseNotificationHelper(applicationContext)
+            .showDailyVerseNotification(favorite, notificationId)
         return Result.success()
+    }
+
+    companion object {
+        const val EXTRA_NOTIFICATION_ID = "extra_notification_id"
     }
 }

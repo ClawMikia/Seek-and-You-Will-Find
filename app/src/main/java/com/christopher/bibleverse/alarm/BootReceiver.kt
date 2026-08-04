@@ -23,9 +23,9 @@ class BootReceiver : BroadcastReceiver() {
         val pendingResult = goAsync()
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val state = alarmPreferences.currentState()
-                if (state.enabled) {
-                    AlarmScheduler(context).schedule(state.hour, state.minute)
+                val scheduler = AlarmScheduler(context)
+                alarmPreferences.currentReminders().forEach { reminder ->
+                    scheduler.schedule(reminder)
                 }
             } finally {
                 pendingResult.finish()

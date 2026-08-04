@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.christopher.bibleverse.alarm.AlarmScheduler
-import com.christopher.bibleverse.data.local.AlarmState
+import com.christopher.bibleverse.data.local.Reminder
 import com.christopher.bibleverse.data.model.Testament
 import com.christopher.bibleverse.data.model.VerseDetail
 import com.christopher.bibleverse.data.repository.VerseRepository
@@ -27,7 +27,7 @@ class HomeViewModel @Inject constructor(
     private val alarmScheduler = AlarmScheduler(context)
 
     val favoriteVerse: LiveData<VerseDetail?> = repository.observeFavorite().asLiveData()
-    val alarmState: LiveData<AlarmState> = repository.alarmState.asLiveData()
+    val reminders: LiveData<List<Reminder>> = repository.reminders.asLiveData()
 
     private val _fetchResult = MutableLiveData<Resource<VerseDetail>?>(null)
     val fetchResult: LiveData<Resource<VerseDetail>?> = _fetchResult
@@ -54,17 +54,26 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun setAlarm(hour: Int, minute: Int) {
+    fun addReminder(hour: Int, minute: Int) {
         viewModelScope.launch {
-            repository.setAlarm(hour, minute)
-            alarmScheduler.schedule(hour, minute)
+            val reminder = repository.addReminder(hour, minute)
+            alarmScheduler.schedule(reminder)
         }
     }
 
-    fun clearAlarm() {
+    fun editReminder(id: Long, hour: Int, minute: Int) {
         viewModelScope.launch {
-            repository.clearAlarm()
-            alarmScheduler.cancel()
+            repository.updateReminder(id, hour, minute)
+            // Re-schedule with the same id: the request code is stable, so the
+            // existing one-shot alarm is replaced with the new time.
+            alarmScheduler.schedule(Reminder(id, hour, minute))
+        }
+    }
+
+    fun removeReminder(id: Long) {
+        viewModelScope.launch {
+            repository.removeReminder(id)
+            alarmScheduler.cancel(id)
         }
     }
 }

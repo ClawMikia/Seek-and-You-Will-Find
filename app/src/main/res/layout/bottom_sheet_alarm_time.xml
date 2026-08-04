@@ -7,6 +7,7 @@
     android:padding="@dimen/spacing_l">
 
     <TextView
+        android:id="@+id/tvSheetTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/alarm_title"
@@ -27,22 +28,22 @@
         android:layout_marginTop="@dimen/spacing_m" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSaveAlarm"
+        android:id="@+id/btnSaveReminder"
         style="@style/Widget.BibleVerse.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_m"
-        android:text="@string/btn_save_alarm"
+        android:text="@string/btn_add_reminder"
         app:icon="@drawable/ic_alarm" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnRemoveAlarm"
+        android:id="@+id/btnRemoveReminder"
         style="@style/Widget.BibleVerse.Button.Outlined"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_s"
         android:visibility="gone"
-        android:text="@string/btn_remove_alarm" />
+        android:text="@string/btn_remove_reminder" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnCancel"

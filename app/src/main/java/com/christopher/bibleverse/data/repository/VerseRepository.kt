@@ -2,8 +2,8 @@ package com.christopher.bibleverse.data.repository
 
 import android.util.Log
 import com.christopher.bibleverse.data.local.AlarmPreferences
-import com.christopher.bibleverse.data.local.AlarmState
 import com.christopher.bibleverse.data.local.OfflineBibleSource
+import com.christopher.bibleverse.data.local.Reminder
 import com.christopher.bibleverse.data.local.dao.FavoriteVerseDao
 import com.christopher.bibleverse.data.local.entity.FavoriteVerseEntity
 import com.christopher.bibleverse.data.model.BibleBook
@@ -111,11 +111,14 @@ class VerseRepository @Inject constructor(
 
     suspend fun getFavoriteOnce(): VerseDetail? = dao.getOnce()?.toDomain()
 
-    // --- Alarm ---
-    val alarmState: Flow<AlarmState> = alarmPreferences.alarmStateFlow
-    suspend fun setAlarm(hour: Int, minute: Int) = alarmPreferences.setAlarm(hour, minute)
-    suspend fun clearAlarm() = alarmPreferences.clearAlarm()
-    suspend fun currentAlarmState(): AlarmState = alarmPreferences.currentState()
+    // --- Reminders ---
+    val reminders: Flow<List<Reminder>> = alarmPreferences.remindersFlow
+    suspend fun addReminder(hour: Int, minute: Int): Reminder =
+        alarmPreferences.addReminder(hour, minute)
+    suspend fun updateReminder(id: Long, hour: Int, minute: Int) =
+        alarmPreferences.updateReminder(id, hour, minute)
+    suspend fun removeReminder(id: Long) = alarmPreferences.removeReminder(id)
+    suspend fun currentReminders(): List<Reminder> = alarmPreferences.currentReminders()
 
     private fun FavoriteVerseEntity.toDomain() = VerseDetail(
         bookId = bookId,

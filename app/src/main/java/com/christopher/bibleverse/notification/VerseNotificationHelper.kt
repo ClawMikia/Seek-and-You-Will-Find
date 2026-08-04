@@ -13,10 +13,10 @@ import com.christopher.bibleverse.ui.main.MainActivity
 
 class VerseNotificationHelper(private val context: Context) {
 
-    fun showDailyVerseNotification(favorite: VerseDetail?) {
+    fun showDailyVerseNotification(favorite: VerseDetail?, notificationId: Int = NOTIFICATION_BASE_ID) {
         val contentIntent = PendingIntent.getActivity(
             context,
-            NOTIFICATION_ID,
+            notificationId,
             Intent(context, MainActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
             },
@@ -45,7 +45,7 @@ class VerseNotificationHelper(private val context: Context) {
             .setContentIntent(contentIntent)
             .build()
 
-        NotificationManagerCompat.from(context).notify(NOTIFICATION_ID, notification)
+        NotificationManagerCompat.from(context).notify(notificationId, notification)
     }
 
     private fun applyContent(views: RemoteViews, favorite: VerseDetail?, expanded: Boolean) {
@@ -66,6 +66,9 @@ class VerseNotificationHelper(private val context: Context) {
     }
 
     companion object {
-        const val NOTIFICATION_ID = 2001
+        const val NOTIFICATION_BASE_ID = 2001
+
+        fun notificationIdFor(reminderId: Long): Int =
+            NOTIFICATION_BASE_ID + (reminderId % 1_000_000L).toInt()
     }
 }

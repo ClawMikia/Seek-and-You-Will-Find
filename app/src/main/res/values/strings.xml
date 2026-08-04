@@ -9,10 +9,9 @@
     <string name="home_empty_subtitle">Find a verse from Scripture to keep close every day.</string>
     <string name="btn_get_verse">Get a Verse</string>
     <string name="btn_change_verse">Change Verse</string>
-    <string name="btn_set_alarm">Set Daily Reminder</string>
-    <string name="btn_change_alarm">Change Reminder Time</string>
-    <string name="alarm_status_off">No daily reminder set</string>
-    <string name="alarm_status_on">Daily reminder at %1$s</string>
+    <string name="btn_add_reminder">Add Reminder</string>
+    <string name="reminders_title">Daily Reminders</string>
+    <string name="alarm_status_off">No daily reminders set</string>
 
     <!-- Verse detail -->
     <string name="label_reference">Reference</string>
@@ -40,11 +39,12 @@
     <string name="btn_save_favorite">Keep as My Verse</string>
     <string name="btn_try_another">Try Another</string>
 
-    <!-- Alarm sheet -->
-    <string name="alarm_title">Daily Reminder</string>
-    <string name="alarm_subtitle">Choose the time you\'d like to receive your verse every morning.</string>
-    <string name="btn_save_alarm">Save Reminder</string>
-    <string name="btn_remove_alarm">Turn Off Reminder</string>
+    <!-- Reminder sheet -->
+    <string name="alarm_title">Add Daily Reminder</string>
+    <string name="alarm_title_edit">Edit Daily Reminder</string>
+    <string name="alarm_subtitle">Choose a time to receive your verse reminder every day. You can add as many reminders as you like.</string>
+    <string name="btn_save_reminder">Save Reminder</string>
+    <string name="btn_remove_reminder">Remove Reminder</string>
 
     <!-- Errors / status -->
     <string name="error_invalid_reference">That reference doesn\'t exist in Scripture. Please try a different combination.</string>
@@ -64,4 +64,5 @@
     <string name="cd_refresh">Refresh</string>
     <string name="cd_filter">Filter</string>
     <string name="cd_alarm">Alarm</string>
+    <string name="cd_remove_reminder">Remove reminder</string>
 </resources>

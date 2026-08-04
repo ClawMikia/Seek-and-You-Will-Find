@@ -1,12 +1,17 @@
 package com.christopher.bibleverse.ui.filter
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.graphics.Paint
+import android.os.Build
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.christopher.bibleverse.R
@@ -15,6 +20,7 @@ import com.christopher.bibleverse.data.model.BibleBooksProvider
 import com.christopher.bibleverse.data.model.Testament
 import com.christopher.bibleverse.data.model.VerseDetail
 import com.christopher.bibleverse.databinding.BottomSheetVerseFilterBinding
+import com.christopher.bibleverse.ui.alarm.AlarmTimeBottomSheet
 import com.christopher.bibleverse.ui.home.HomeViewModel
 import com.christopher.bibleverse.util.Resource
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -34,6 +40,9 @@ class VerseFilterBottomSheet : BottomSheetDialogFragment() {
     private var selectedChapter: Int? = null
     private var selectedVerse: Int? = null
     private var pendingVerse: VerseDetail? = null
+
+    private val notificationPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { /* no-op either way */ }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,6 +72,7 @@ class VerseFilterBottomSheet : BottomSheetDialogFragment() {
                 viewModel.saveFavorite(it)
                 viewModel.clearFetchResult()
                 dismiss()
+                promptForReminder()
             }
         }
 
@@ -106,6 +116,22 @@ class VerseFilterBottomSheet : BottomSheetDialogFragment() {
 
     private fun fetch() {
         viewModel.fetchVerse(selectedTestament, selectedBook?.id, selectedChapter, selectedVerse)
+    }
+
+    private fun promptForReminder() {
+        ensureNotificationPermission()
+        AlarmTimeBottomSheet().show(parentFragmentManager, AlarmTimeBottomSheet.TAG)
+    }
+
+    private fun ensureNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val granted = ContextCompat.checkSelfPermission(
+                requireContext(), Manifest.permission.POST_NOTIFICATIONS
+            ) == PackageManager.PERMISSION_GRANTED
+            if (!granted) {
+                notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
+        }
     }
 
     private fun setupPickers() {

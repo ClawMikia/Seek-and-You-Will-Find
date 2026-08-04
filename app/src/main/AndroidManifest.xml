@@ -35,6 +35,11 @@
             android:name=".alarm.AlarmReceiver"
             android:exported="false" />
 
+        <provider
+            android:name=".alarm.AlarmSoundProvider"
+            android:authorities="com.christopher.bibleverse.alarmsound"
+            android:exported="true" />
+
         <receiver
             android:name=".alarm.BootReceiver"
             android:exported="true">

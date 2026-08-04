@@ -5,22 +5,23 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import com.christopher.bibleverse.data.local.Reminder
 import java.util.Calendar
 
 /**
- * Schedules exactly one recurring daily alarm that fires the
- * morning verse notification. Uses setExactAndAllowWhileIdle +
- * a self-rescheduling receiver so it keeps firing every day even
- * under Doze, without needing setRepeating's drift-prone inexact API.
+ * Schedules recurring daily alarms that fire the morning verse notification.
+ * Each reminder gets its own one-shot exact alarm + self-rescheduling receiver
+ * so it keeps firing every day even under Doze, without using the drift-prone
+ * inexact repeating API.
  */
 class AlarmScheduler(private val context: Context) {
 
     private val alarmManager: AlarmManager
         get() = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-    fun schedule(hour: Int, minute: Int) {
-        val pendingIntent = buildPendingIntent()
-        val triggerAt = nextTriggerMillis(hour, minute)
+    fun schedule(reminder: Reminder) {
+        val pendingIntent = buildPendingIntent(reminder.id)
+        val triggerAt = nextTriggerMillis(reminder.hour, reminder.minute)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (alarmManager.canScheduleExactAlarms()) {
@@ -33,17 +34,18 @@ class AlarmScheduler(private val context: Context) {
         }
     }
 
-    fun cancel() {
-        alarmManager.cancel(buildPendingIntent())
+    fun cancel(reminderId: Long) {
+        alarmManager.cancel(buildPendingIntent(reminderId))
     }
 
-    private fun buildPendingIntent(): PendingIntent {
+    private fun buildPendingIntent(reminderId: Long): PendingIntent {
         val intent = Intent(context, AlarmReceiver::class.java).apply {
             action = ACTION_DAILY_VERSE
+            putExtra(EXTRA_REMINDER_ID, reminderId)
         }
         return PendingIntent.getBroadcast(
             context,
-            REQUEST_CODE,
+            REQUEST_CODE_BASE + (reminderId % REQUEST_CODE_RANGE).toInt(),
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
@@ -65,6 +67,8 @@ class AlarmScheduler(private val context: Context) {
 
     companion object {
         const val ACTION_DAILY_VERSE = "com.christopher.bibleverse.action.DAILY_VERSE"
-        private const val REQUEST_CODE = 1001
+        const val EXTRA_REMINDER_ID = "com.christopher.bibleverse.extra.REMINDER_ID"
+        private const val REQUEST_CODE_BASE = 1001
+        private const val REQUEST_CODE_RANGE = 1_000_000
     }
 }

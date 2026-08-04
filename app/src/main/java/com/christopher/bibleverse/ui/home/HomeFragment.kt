@@ -12,8 +12,10 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.christopher.bibleverse.R
+import com.christopher.bibleverse.data.local.Reminder
 import com.christopher.bibleverse.data.model.VerseDetail
 import com.christopher.bibleverse.databinding.FragmentHomeBinding
+import com.christopher.bibleverse.databinding.ItemReminderBinding
 import com.christopher.bibleverse.ui.alarm.AlarmTimeBottomSheet
 import com.christopher.bibleverse.ui.filter.VerseFilterBottomSheet
 import com.christopher.bibleverse.util.DateTimeUtils
@@ -44,26 +46,37 @@ class HomeFragment : Fragment() {
 
         binding.btnGetVerse.setOnClickListener { openFilterSheet() }
         binding.btnChangeVerse.setOnClickListener { openFilterSheet() }
-        binding.btnSetAlarm.setOnClickListener { openAlarmSheet() }
-        binding.btnChangeAlarm.setOnClickListener { openAlarmSheet() }
+        binding.btnAddReminder.setOnClickListener { openAlarmSheet() }
 
         viewModel.favoriteVerse.observe(viewLifecycleOwner) { verse ->
             renderVerse(verse)
         }
 
-        viewModel.alarmState.observe(viewLifecycleOwner) { state ->
-            if (state.enabled) {
-                binding.tvAlarmStatus.text = getString(
-                    R.string.alarm_status_on,
-                    DateTimeUtils.formatHourMinute(state.hour, state.minute)
-                )
-                binding.btnSetAlarm.visibility = View.GONE
-                binding.btnChangeAlarm.visibility = View.VISIBLE
-            } else {
-                binding.tvAlarmStatus.text = getString(R.string.alarm_status_off)
-                binding.btnSetAlarm.visibility = View.VISIBLE
-                binding.btnChangeAlarm.visibility = View.GONE
+        viewModel.reminders.observe(viewLifecycleOwner) { reminders ->
+            renderReminders(reminders)
+        }
+    }
+
+    private fun renderReminders(reminders: List<Reminder>) {
+        binding.alarmListContainer.removeAllViews()
+        if (reminders.isEmpty()) {
+            binding.tvAlarmStatus.visibility = View.VISIBLE
+            binding.alarmListContainer.visibility = View.GONE
+            return
+        }
+        binding.tvAlarmStatus.visibility = View.GONE
+        binding.alarmListContainer.visibility = View.VISIBLE
+        reminders.forEach { reminder ->
+            val row = ItemReminderBinding.inflate(layoutInflater, binding.alarmListContainer, false)
+            row.tvReminderTime.text = DateTimeUtils.formatHourMinute(reminder.hour, reminder.minute)
+            row.root.setOnClickListener {
+                AlarmTimeBottomSheet.newInstance(reminder.id)
+                    .show(childFragmentManager, AlarmTimeBottomSheet.TAG)
             }
+            row.btnRemoveReminder.setOnClickListener {
+                viewModel.removeReminder(reminder.id)
+            }
+            binding.alarmListContainer.addView(row.root)
         }
     }
 

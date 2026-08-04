@@ -131,7 +131,7 @@
 
         </LinearLayout>
 
-        <!-- Alarm card -->
+        <!-- Reminders card -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -153,30 +153,39 @@
                     android:contentDescription="@string/cd_alarm" />
 
                 <TextView
-                    android:id="@+id/tvAlarmStatus"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="@dimen/spacing_s"
-                    android:text="@string/alarm_status_off"
-                    android:textAppearance="@style/TextAppearance.BibleVerse.Body" />
+                    android:text="@string/reminders_title"
+                    android:textAppearance="@style/TextAppearance.BibleVerse.Body"
+                    android:textColor="@color/burgundy"
+                    android:textStyle="bold" />
             </LinearLayout>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnSetAlarm"
+            <LinearLayout
+                android:id="@+id/alarmListContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_m"
-                android:text="@string/btn_set_alarm" />
+                android:layout_marginTop="@dimen/spacing_s"
+                android:orientation="vertical"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvAlarmStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_s"
+                android:text="@string/alarm_status_off"
+                android:textAppearance="@style/TextAppearance.BibleVerse.Body" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnChangeAlarm"
-                style="@style/Widget.BibleVerse.Button.Outlined"
+                android:id="@+id/btnAddReminder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_m"
-                android:visibility="gone"
-                android:text="@string/btn_change_alarm" />
+                android:text="@string/btn_add_reminder"
+                app:icon="@drawable/ic_alarm" />
 
         </LinearLayout>
 

@@ -1,9 +1,10 @@
 package com.christopher.bibleverse.data.local
 
 import android.content.Context
-import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.longPreferencesKey
+import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -11,46 +12,65 @@ import kotlinx.coroutines.flow.map
 
 private val Context.alarmDataStore by preferencesDataStore(name = "alarm_prefs")
 
-data class AlarmState(
-    val enabled: Boolean,
+data class Reminder(
+    val id: Long,
     val hour: Int,
     val minute: Int
 )
 
 /**
- * The app supports exactly one recurring daily alarm. Its time is
- * persisted here so it survives process death, reboots, and can be
- * re-read whenever the user wants to change it.
+ * The app supports any number of recurring daily reminders. Each reminder has
+ * a unique id, hour and minute; ids are persisted here so reminders survive
+ * process death, reboots, and can be re-read whenever the user changes them.
  */
 class AlarmPreferences(private val context: Context) {
 
     private object Keys {
-        val ENABLED = booleanPreferencesKey("alarm_enabled")
-        val HOUR = intPreferencesKey("alarm_hour")
-        val MINUTE = intPreferencesKey("alarm_minute")
+        val REMINDER_IDS = stringSetPreferencesKey("reminder_ids")
+        val NEXT_ID = longPreferencesKey("next_reminder_id")
+        fun hour(id: Long) = intPreferencesKey("reminder_${id}_hour")
+        fun minute(id: Long) = intPreferencesKey("reminder_${id}_minute")
     }
 
-    val alarmStateFlow: Flow<AlarmState> = context.alarmDataStore.data.map { prefs ->
-        AlarmState(
-            enabled = prefs[Keys.ENABLED] ?: false,
-            hour = prefs[Keys.HOUR] ?: 7,
-            minute = prefs[Keys.MINUTE] ?: 0
-        )
+    val remindersFlow: Flow<List<Reminder>> = context.alarmDataStore.data.map { prefs ->
+        (prefs[Keys.REMINDER_IDS] ?: emptySet())
+            .mapNotNull { it.toLongOrNull() }
+            .mapNotNull { id ->
+                val hour = prefs[Keys.hour(id)] ?: return@mapNotNull null
+                val minute = prefs[Keys.minute(id)] ?: return@mapNotNull null
+                Reminder(id, hour, minute)
+            }
+            .sortedWith(compareBy<Reminder> { it.hour }.thenBy { it.minute })
     }
 
-    suspend fun setAlarm(hour: Int, minute: Int) {
+    suspend fun addReminder(hour: Int, minute: Int): Reminder {
+        var result: Reminder? = null
         context.alarmDataStore.edit { prefs ->
-            prefs[Keys.ENABLED] = true
-            prefs[Keys.HOUR] = hour
-            prefs[Keys.MINUTE] = minute
+            val id = prefs[Keys.NEXT_ID] ?: 1L
+            prefs[Keys.NEXT_ID] = id + 1
+            prefs[Keys.REMINDER_IDS] = (prefs[Keys.REMINDER_IDS] ?: emptySet()) + id.toString()
+            prefs[Keys.hour(id)] = hour
+            prefs[Keys.minute(id)] = minute
+            result = Reminder(id, hour, minute)
+        }
+        return checkNotNull(result) { "Reminder could not be persisted" }
+    }
+
+    suspend fun removeReminder(id: Long) {
+        context.alarmDataStore.edit { prefs ->
+            val ids = prefs[Keys.REMINDER_IDS] ?: emptySet()
+            prefs[Keys.REMINDER_IDS] = ids - id.toString()
+            prefs.remove(Keys.hour(id))
+            prefs.remove(Keys.minute(id))
         }
     }
 
-    suspend fun clearAlarm() {
+    suspend fun updateReminder(id: Long, hour: Int, minute: Int) {
         context.alarmDataStore.edit { prefs ->
-            prefs[Keys.ENABLED] = false
+            prefs[Keys.hour(id)] = hour
+            prefs[Keys.minute(id)] = minute
         }
     }
 
-    suspend fun currentState(): AlarmState = alarmStateFlow.first()
+    suspend fun currentReminders(): List<Reminder> = remindersFlow.first()
 }
