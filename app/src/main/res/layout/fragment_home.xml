@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_l">
+
+        <!-- Empty state -->
+        <LinearLayout
+            android:id="@+id/groupEmptyState"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingTop="@dimen/spacing_xxl"
+            android:paddingBottom="@dimen/spacing_xxl">
+
+            <ImageView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:src="@drawable/ic_scroll"
+                android:contentDescription="@string/cd_cross_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_m"
+                android:text="@string/home_empty_title"
+                android:textAppearance="@style/TextAppearance.BibleVerse.Headline" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_s"
+                android:gravity="center"
+                android:text="@string/home_empty_subtitle"
+                android:textAppearance="@style/TextAppearance.BibleVerse.Body" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGetVerse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_l"
+                android:paddingStart="@dimen/spacing_l"
+                android:paddingEnd="@dimen/spacing_l"
+                android:text="@string/btn_get_verse"
+                app:icon="@drawable/ic_book" />
+
+        </LinearLayout>
+
+        <!-- Verse detail card -->
+        <LinearLayout
+            android:id="@+id/groupVerseDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:background="@drawable/bg_card_scroll"
+            android:padding="@dimen/spacing_l">
+
+            <TextView
+                android:id="@+id/tvVerseText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.BibleVerse.Display"
+                android:gravity="center" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="@dimen/spacing_m"
+                android:layout_marginBottom="@dimen/spacing_m"
+                android:background="@drawable/divider_ornament" />
+
+            <!-- Detail rows -->
+
+            <TextView style="@style/TextAppearance.BibleVerse.Label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/label_reference" android:layout_marginTop="@dimen/spacing_s"/>
+            <TextView android:id="@+id/tvReferenceValue" style="@style/TextAppearance.BibleVerse.Body" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/burgundy" android:textStyle="bold" android:textSize="@dimen/text_title"/>
+
+            <TextView style="@style/TextAppearance.BibleVerse.Label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/label_book" android:layout_marginTop="@dimen/spacing_m"/>
+            <TextView android:id="@+id/tvBookValue" style="@style/TextAppearance.BibleVerse.Body" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+
+            <TextView style="@style/TextAppearance.BibleVerse.Label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/label_testament" android:layout_marginTop="@dimen/spacing_m"/>
+            <TextView android:id="@+id/tvTestamentValue" style="@style/TextAppearance.BibleVerse.Body" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/spacing_m">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView style="@style/TextAppearance.BibleVerse.Label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/label_chapter"/>
+                    <TextView android:id="@+id/tvChapterValue" style="@style/TextAppearance.BibleVerse.Body" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView style="@style/TextAppearance.BibleVerse.Label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/label_verse_number"/>
+                    <TextView android:id="@+id/tvVerseNumberValue" style="@style/TextAppearance.BibleVerse.Body" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView style="@style/TextAppearance.BibleVerse.Label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/label_translation" android:layout_marginTop="@dimen/spacing_m"/>
+            <TextView android:id="@+id/tvTranslationValue" style="@style/TextAppearance.BibleVerse.Body" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+
+            <TextView style="@style/TextAppearance.BibleVerse.Label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/label_saved_on" android:layout_marginTop="@dimen/spacing_m"/>
+            <TextView android:id="@+id/tvSavedOnValue" style="@style/TextAppearance.BibleVerse.Body" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnChangeVerse"
+                style="@style/Widget.BibleVerse.Button.Outlined"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_l"
+                android:text="@string/btn_change_verse"
+                app:icon="@drawable/ic_refresh" />
+
+        </LinearLayout>
+
+        <!-- Alarm card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/spacing_l"
+            android:background="@drawable/bg_card_scroll_inner"
+            android:padding="@dimen/spacing_m">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_alarm"
+                    android:contentDescription="@string/cd_alarm" />
+
+                <TextView
+                    android:id="@+id/tvAlarmStatus"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/spacing_s"
+                    android:text="@string/alarm_status_off"
+                    android:textAppearance="@style/TextAppearance.BibleVerse.Body" />
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSetAlarm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_m"
+                android:text="@string/btn_set_alarm" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnChangeAlarm"
+                style="@style/Widget.BibleVerse.Button.Outlined"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_m"
+                android:visibility="gone"
+                android:text="@string/btn_change_alarm" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

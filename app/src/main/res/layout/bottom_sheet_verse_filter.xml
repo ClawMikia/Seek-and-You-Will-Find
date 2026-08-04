@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_l">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/filter_title"
+            android:textAppearance="@style/TextAppearance.BibleVerse.Headline" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/spacing_xl"
+            android:layout_marginBottom="@dimen/spacing_xl"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_s"
+            android:textColor="@color/error_red"
+            android:visibility="gone" />
+
+        <!-- Filter inputs -->
+        <LinearLayout
+            android:id="@+id/groupFilterInputs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextAppearance.BibleVerse.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_m"
+                android:text="@string/filter_testament_label" />
+            <Spinner
+                android:id="@+id/spinnerTestament"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_pill_gold_outline"
+                android:padding="@dimen/spacing_s" />
+
+            <TextView
+                style="@style/TextAppearance.BibleVerse.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_m"
+                android:text="@string/filter_book_label" />
+            <Spinner
+                android:id="@+id/spinnerBook"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_pill_gold_outline"
+                android:padding="@dimen/spacing_s" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/spacing_m">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/spacing_s"
+                    android:orientation="vertical">
+                    <TextView
+                        style="@style/TextAppearance.BibleVerse.Label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/filter_chapter_label" />
+                    <Spinner
+                        android:id="@+id/spinnerChapter"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_pill_gold_outline"
+                        android:padding="@dimen/spacing_s" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/spacing_s"
+                    android:orientation="vertical">
+                    <TextView
+                        style="@style/TextAppearance.BibleVerse.Label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/filter_verse_label" />
+                    <Spinner
+                        android:id="@+id/spinnerVerse"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_pill_gold_outline"
+                        android:padding="@dimen/spacing_s" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/spacing_l">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCancel"
+                    style="@style/Widget.BibleVerse.Button.Outlined"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/spacing_s"
+                    android:text="@string/btn_cancel" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnFetchVerse"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/spacing_s"
+                    android:text="@string/btn_fetch_verse"
+                    app:icon="@drawable/ic_filter" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Preview -->
+        <LinearLayout
+            android:id="@+id/groupPreview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:background="@drawable/bg_card_scroll_inner"
+            android:padding="@dimen/spacing_m"
+            android:layout_marginTop="@dimen/spacing_m">
+
+            <TextView
+                android:id="@+id/tvPreviewText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.BibleVerse.Display"
+                android:textSize="@dimen/text_headline" />
+
+            <TextView
+                android:id="@+id/tvPreviewReference"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_s"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/burgundy" />
+
+            <TextView
+                android:id="@+id/tvPreviewTranslation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.BibleVerse.Label" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/spacing_m">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnTryAnother"
+                    style="@style/Widget.BibleVerse.Button.Outlined"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/spacing_s"
+                    android:text="@string/btn_try_another" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSaveFavorite"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/spacing_s"
+                    android:text="@string/btn_save_favorite"
+                    app:icon="@drawable/ic_favorite" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

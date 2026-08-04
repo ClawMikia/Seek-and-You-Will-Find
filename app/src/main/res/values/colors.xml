@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Parchment / scripture palette -->
+    <color name="parchment_light">#FBF3E1</color>
+    <color name="parchment">#F3E6C9</color>
+    <color name="parchment_dark">#E7D5A8</color>
+
+    <!-- Ink & text -->
+    <color name="ink_brown">#3B2A1E</color>
+    <color name="ink_brown_secondary">#7A6248</color>
+    <color name="ink_faded">#9C8863</color>
+
+    <!-- Burgundy / royal robe accents -->
+    <color name="burgundy">#6B1E23</color>
+    <color name="burgundy_dark">#4A1418</color>
+    <color name="burgundy_light">#8C3A3F</color>
+
+    <!-- Gold / gilded accents -->
+    <color name="gold">#C9A227</color>
+    <color name="gold_light">#E8C468</color>
+    <color name="gold_dark">#9C7A18</color>
+
+    <!-- Deep navy (used sparingly for status bar / contrast) -->
+    <color name="night_indigo">#1C1A2E</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="error_red">#8C2F2F</color>
+    <color name="success_green">#3E6B4A</color>
+
+    <!-- Semantic -->
+    <color name="colorPrimary">@color/burgundy</color>
+    <color name="colorPrimaryDark">@color/burgundy_dark</color>
+    <color name="colorAccent">@color/gold</color>
+    <color name="colorBackground">@color/parchment_light</color>
+    <color name="colorSurface">@color/parchment</color>
+    <color name="colorOnPrimary">@color/parchment_light</color>
+    <color name="colorOnSurface">@color/ink_brown</color>
+</resources>
