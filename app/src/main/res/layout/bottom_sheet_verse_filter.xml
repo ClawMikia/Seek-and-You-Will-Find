@@ -235,7 +235,7 @@
                     android:id="@+id/btnTryAnother"
                     style="@style/Widget.BibleVerse.Button.Outlined"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/button_height"
                     android:layout_weight="1"
                     android:layout_marginEnd="@dimen/spacing_s"
                     android:text="@string/btn_try_another" />
@@ -244,7 +244,7 @@
                     android:id="@+id/btnSaveFavorite"
                     style="@style/Widget.BibleVerse.Button"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/button_height"
                     android:layout_weight="1"
                     android:layout_marginStart="@dimen/spacing_s"
                     android:text="@string/btn_save_favorite"

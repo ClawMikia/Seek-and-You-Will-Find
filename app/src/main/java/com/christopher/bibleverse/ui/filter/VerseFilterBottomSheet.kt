@@ -66,7 +66,17 @@ class VerseFilterBottomSheet : BottomSheetDialogFragment() {
         binding.btnCancel.setOnClickListener { dismiss() }
         fitButtonText(binding.btnCancel, 8f)
         fitButtonText(binding.btnFetchVerse, 8f)
-        binding.btnTryAnother.setOnClickListener { fetch() }
+
+        binding.btnTryAnother.setOnClickListener {
+            // If they had a specific verse selected, clear it so "Try Another"
+            // actually reveals a different verse in the same chapter.
+            if (selectedVerse != null) {
+                selectedVerse = null
+                binding.tvVerse.text = getString(R.string.filter_verse_any)
+            }
+            fetch()
+        }
+
         binding.btnSaveFavorite.setOnClickListener {
             pendingVerse?.let {
                 viewModel.saveFavorite(it)
@@ -264,6 +274,14 @@ class VerseFilterBottomSheet : BottomSheetDialogFragment() {
         binding.tvPreviewText.text = "\u201C${verse.text}\u201D"
         binding.tvPreviewReference.text = verse.reference
         binding.tvPreviewTranslation.text = verse.translationName
+
+        fitButtonText(binding.btnTryAnother, 8f)
+        fitButtonText(binding.btnSaveFavorite, 8f)
+
+        // Ensure we're at the top so the new verse is visible
+        binding.root.post {
+            binding.root.smoothScrollTo(0, 0)
+        }
     }
 
     private fun showErrorState() {
