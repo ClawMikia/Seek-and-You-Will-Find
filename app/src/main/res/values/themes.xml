@@ -10,9 +10,10 @@
         <item name="colorSurface">@color/colorSurface</item>
         <item name="colorOnPrimary">@color/colorOnPrimary</item>
         <item name="colorOnSurface">@color/colorOnSurface</item>
-        <item name="android:statusBarColor">@color/burgundy_dark</item>
+        <item name="android:statusBarColor">@color/burgundy</item>
         <item name="android:windowLightStatusBar" tools:targetApi="23">false</item>
-        <item name="android:navigationBarColor">@color/parchment_dark</item>
+        <item name="android:navigationBarColor">@color/burgundy</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
         <item name="android:fontFamily">serif</item>
         <item name="fontFamily">serif</item>
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.BibleVerse.BottomSheet</item>
